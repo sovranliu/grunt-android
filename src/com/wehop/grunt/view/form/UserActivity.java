@@ -1,34 +1,55 @@
 package com.wehop.grunt.view.form;
 
-import com.slfuture.carrie.base.text.Text;
+import com.slfuture.pluto.communication.Host;
+import com.slfuture.pluto.communication.response.ImageResponse;
+import com.slfuture.pluto.view.annotation.ResourceView;
+import com.slfuture.pluto.view.component.FragmentEx;
+import com.wehop.grunt.R;
+import com.wehop.grunt.business.Logic;
+import com.wehop.grunt.framework.Storage;
 import com.wehop.grunt.framework.Utility;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.view.LayoutInflater;
+import android.net.Uri;
 import android.view.View;
-import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 /**
  * 首页
  */
-public class UserActivity extends Fragment {
-	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		return inflater.inflate(R.layout.activity_user, container, true);
-	}
+@ResourceView(id = R.layout.activity_user)
+public class UserActivity extends FragmentEx {
+	/**
+	 * 关于我们URL
+	 */
+	public final static String URL_ABOUT = "http://www.baidu.com";
+	/**
+	 * 热线电话
+	 */
+	public final static String TELEPHONE_US = "15021819287";
+
+
+	@ResourceView(id = R.id.user_image_photo)
+	public ImageView imgPhoto;
+	@ResourceView(id = R.id.user_label_name)
+	public TextView labName;
+	@ResourceView(id = R.id.user_layout_about)
+	public View layAbout;
+	@ResourceView(id = R.id.user_layout_telephone)
+	public View layTelephone;
+	@ResourceView(id = R.id.user_button_exit)
+	public Button btnExit;
+
 
 	@Override
 	public void onStart() {
 		super.onStart();
 		prepare();
 	}
-	
+
 	@Override
 	public void onResume() {
 		super.onResume();
@@ -43,78 +64,41 @@ public class UserActivity extends Fragment {
 	 * 界面预处理
 	 */
 	public void prepare() {
-		final ImageView imgPhoto = (ImageView) this.getActivity().findViewById(R.id.user_button_photo);
-		if(Text.isBlank(Logic.user.photo)) {
-			imgPhoto.setImageBitmap(Utility.makeImageRing(Utility.makeCycleImage(BitmapFactory.decodeResource(this.getResources(), R.drawable.photo_default), 200, 200), 4));
-		}
-		else {
-            Host.doImage("image", new ImageResponse(Logic.user.photo, null) {
-				@Override
-				public void onFinished(Bitmap content) {
-					if(null == content) {
-						return;
+		if(null != Logic.user) {
+			if(null != Logic.user.photo) {
+				Host.doImage("image", new ImageResponse(Logic.user.photo, null) {
+					@Override
+					public void onFinished(Bitmap content) {
+						imgPhoto.setImageBitmap(Utility.makeImageRing(Utility.makeCycleImage(content, 200, 200), 4));
 					}
-					imgPhoto.setImageBitmap(Utility.makeImageRing(Utility.makeCycleImage(content, 200, 200), 4));
-				}
-            }, Logic.user.photo);
-		}
-//		imgPhoto.setOnClickListener(new View.OnClickListener() {
-//			@Override
-//			public void onClick(View v) {
-//				startActivity(new Intent(UserActivity.this.getActivity(), UserInfoActivity.class));
-//			}
-//		});
-		ViewGroup viewGroup = (ViewGroup) this.getActivity().findViewById(R.id.user_layout_info);
-		viewGroup.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				startActivity(new Intent(UserActivity.this.getActivity(), UserInfoActivity.class));
+				}, Logic.user.photo);
 			}
-		});
-		//
-		viewGroup = (ViewGroup) this.getActivity().findViewById(R.id.user_layout_blog);
-		viewGroup.setOnClickListener(new View.OnClickListener() {
+			labName.setText(Logic.user.name);
+		}
+		layAbout.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				Intent intent = new Intent(UserActivity.this.getActivity(), WebActivity.class);
-				intent.putExtra("url", Host.fetchURL("nearby", Logic.user.token));
+				intent.putExtra("url", URL_ABOUT);
 				startActivity(intent);
 			}
 		});
-		//
-		viewGroup = (ViewGroup) this.getActivity().findViewById(R.id.user_layout_concern);
-		viewGroup.setOnClickListener(new View.OnClickListener() {
+		layTelephone.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				startActivity(new Intent(UserActivity.this.getActivity(), FriendActivity.class));
+				Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("tel:" + TELEPHONE_US));
+	            startActivity(intent);
 			}
 		});
-		//
-		viewGroup = (ViewGroup) this.getActivity().findViewById(R.id.user_layout_activity);
-		viewGroup.setOnClickListener(new View.OnClickListener() {
+		btnExit.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				startActivity(new Intent(UserActivity.this.getActivity(), MyActivityActivity.class));
+				Logic.user = null;
+				Storage.save();
+				// 切入登录页
+				UserActivity.this.getActivity().startActivity(new Intent(UserActivity.this.getActivity(), LoginActivity.class));
+				UserActivity.this.getActivity().finish();
 			}
 		});
-		//
-		viewGroup = (ViewGroup) this.getActivity().findViewById(R.id.user_layout_message);
-		viewGroup.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				startActivity(new Intent(UserActivity.this.getActivity(), MyMessageActivity.class));
-			}
-		});
-		//
-		viewGroup = (ViewGroup) this.getActivity().findViewById(R.id.user_layout_setting);
-		viewGroup.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				startActivity(new Intent(UserActivity.this.getActivity(), ConfigActivity.class));
-			}
-		});
-		//
-		TextView labNickName = ((TextView) this.getActivity().findViewById(R.id.user_label_nickname));
-		labNickName.setText(Logic.user.nickName);
 	}
 }

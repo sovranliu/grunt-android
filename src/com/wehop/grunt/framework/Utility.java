@@ -6,14 +6,20 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.LinkedList;
+import java.util.List;
 
 import com.slfuture.carrie.base.time.DateTime;
 import com.slfuture.carrie.base.time.Duration;
 import com.wehop.grunt.Program;
 import com.wehop.grunt.R;
+import com.wehop.grunt.framework.qcode.CaptureActivity;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.Config;
@@ -23,6 +29,8 @@ import android.graphics.Paint;
 import android.graphics.PorterDuff.Mode;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.RectF;
+import android.net.wifi.ScanResult;
+import android.net.wifi.WifiManager;
 import android.os.Environment;
 import android.view.Gravity;
 import android.view.View;
@@ -96,7 +104,7 @@ public class Utility {
         paint.setAntiAlias(true);
         paint.setFilterBitmap(true);
         paint.setDither(true);
-        paint.setColor(Program.application.getResources().getColor(R.color.green));
+        paint.setColor(Program.application.getResources().getColor(R.color.white));
         paint.setStyle(Paint.Style.STROKE);
         paint.setStrokeWidth(strokeWidth);
         canvas.drawCircle(bitmap.getWidth() / 2, bitmap.getHeight() / 2, radius, paint);
@@ -242,5 +250,36 @@ public class Utility {
 		else {
 			return time.getDate().toString();
 		}
+	}
+	
+	/**
+	 * 扫描WIFI
+	 * 
+	 * @return 可用 WIFI列表
+	 */
+	public static List<String> scanWIFI() {
+		WifiManager manager = (WifiManager) Program.application.getSystemService(Context.WIFI_SERVICE);  
+		List<ScanResult> list = manager.getScanResults();
+		Collections.sort(list,new Comparator<ScanResult>(){
+            public int compare(ScanResult arg0, ScanResult arg1) {
+                return arg0.level - arg1.level;
+            }
+        });
+		LinkedList<String> result = new LinkedList<String>();
+		for(ScanResult scanResult : list) {
+			result.add(scanResult.SSID);
+		}
+		return result;
+	}
+
+	/**
+	 * 扫描二维码
+	 * 
+	 * @param context 上下文
+	 * @param requestId 请求ID
+	 */
+	public static void capture(Activity context, int requestId) {
+		Intent intent = new Intent(context, CaptureActivity.class);
+		context.startActivityForResult(intent, requestId);
 	}
 }

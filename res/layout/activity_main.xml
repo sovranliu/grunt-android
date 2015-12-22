@@ -12,11 +12,11 @@
             android:layout_width="match_parent"
             android:layout_height="0dip"
             android:layout_weight="1" >
-            <fragment android:name="com.wehop.grunt.view.form.WebActivity"
+            <fragment android:name="com.wehop.grunt.view.form.HomeActivity"
                 android:id="@+id/main_fragment_home"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"/>
-            <fragment android:name="com.wehop.grunt.view.form.WebActivity"
+            <fragment android:name="com.wehop.grunt.view.form.TaskActivity"
                 android:id="@+id/main_fragment_task"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"/>

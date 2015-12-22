@@ -64,7 +64,17 @@ public class Storage {
 		}
 		return IMAGE_ROOT + code;
 	}
-	
+
+	/**
+	 * 获取数据文件对象
+	 * 
+	 * @param fileName 数据文件名
+	 * @return 数据文件对象
+	 */
+	public static File getDataFile(String fileName) {
+		return new File(DATA_ROOT + fileName);
+	}
+
 	/**
 	 * 获取指定名称的图片
 	 * 
@@ -77,7 +87,7 @@ public class Storage {
 		}
 		return BitmapFactory.decodeFile(file.getAbsolutePath());
 	}
-	
+
 	/**
 	 * 获取指定名称的图片
 	 * 
@@ -107,7 +117,7 @@ public class Storage {
 		}
 		return url.substring(i + 1);
 	}
-	
+
 	/**
 	 * 获取用户相关信息
 	 * 

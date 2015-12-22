@@ -1,11 +1,12 @@
 package com.wehop.grunt.view.form;
 
 import com.slfuture.pluto.view.annotation.ResourceView;
-import com.slfuture.pluto.view.component.ActivityEx;
+import com.slfuture.pluto.view.component.FragmentEx;
 import com.wehop.grunt.R;
+import com.wehop.grunt.framework.Utility;
+import com.wehop.grunt.view.control.WebViewEx;
 
 import android.net.Uri;
-import android.os.Bundle;
 import android.content.Intent;
 import android.view.View;
 import android.view.animation.Animation;
@@ -18,20 +19,24 @@ import android.webkit.WebViewClient;
 import android.widget.ImageView;
 
 /**
- * 浏览器页
+ * 首页
  */
-@ResourceView(id = R.layout.activity_web)
-public class WebActivity extends ActivityEx {
+@ResourceView(id = R.layout.activity_home)
+public class HomeActivity extends FragmentEx {
+	/**
+	 * 入口URL
+	 */
+	public final static String URL = "http://www.baidu.com";
 	/**
 	 * 引导对象
 	 */
-	@ResourceView(id = R.id.web_image_load)
+	@ResourceView(id = R.id.home_image_load)
 	public ImageView load = null;
 	/**
 	 * 浏览器对象
 	 */
-	@ResourceView(id = R.id.web_browser)
-	public WebView browser = null;
+	@ResourceView(id = R.id.home_browser)
+	public WebViewEx browser = null;
 	/**
 	 * 加载的URL
 	 */
@@ -39,11 +44,19 @@ public class WebActivity extends ActivityEx {
 
 
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
+	public void onStart() {
+		super.onStart();
 		//
 		prepare();
 		load();
+	}
+	
+	@Override
+	public void onActivityResult(int requestCode, int resultCode, Intent data) {
+		switch (requestCode) {
+			case WebViewEx.MESSAGE_ID_CAPTURE:
+				browser.callback(data.getStringExtra("result"));
+		}
 	}
 
 	/**
@@ -58,7 +71,7 @@ public class WebActivity extends ActivityEx {
 	 * 准备数据
 	 */
 	public void prepareData() {
-		this.url = this.getIntent().getStringExtra("url");
+		this.url = URL;
 	}
 
 	/**
@@ -97,6 +110,7 @@ public class WebActivity extends ActivityEx {
 	            startActivity(intent);  
 	        }
 		});
+		browser.prepare();
 	}
 
 	/**
@@ -106,7 +120,7 @@ public class WebActivity extends ActivityEx {
 		if(null == url) {
 			return;
 		}
-		Animation animation = AnimationUtils.loadAnimation(this, R.anim.ratote);  
+		Animation animation = AnimationUtils.loadAnimation(this.getActivity(), R.anim.ratote);  
 		animation.setInterpolator(new LinearInterpolator());
 		load.setVisibility(View.VISIBLE);
 		load.startAnimation(animation);

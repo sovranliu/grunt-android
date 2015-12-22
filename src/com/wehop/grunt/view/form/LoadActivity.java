@@ -7,10 +7,12 @@ import com.wehop.grunt.base.Logger;
 import com.wehop.grunt.business.Logic;
 import com.wehop.grunt.framework.DynamicConfig;
 import com.wehop.grunt.framework.Storage;
+import com.wehop.grunt.framework.qcode.CaptureActivity;
 import com.slfuture.pluto.etc.Control;
 import com.slfuture.pluto.view.annotation.ResourceView;
 import com.slfuture.pluto.view.component.ActivityEx;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -57,10 +59,11 @@ public class LoadActivity extends ActivityEx {
 			@Override
 			public void run() {
 		        if(null == Logic.user) {
-		        	// startActivity(new Intent(LoadActivity.this, LoginActivity.class));
+		        	// startActivity(new Intent(LoadActivity.this, CaptureActivity.class));
+		        	startActivity(new Intent(LoadActivity.this, LoginActivity.class));
 		        }
 		        else {
-					// startActivity(new Intent(LoadActivity.this, MainActivity.class));
+					startActivity(new Intent(LoadActivity.this, MainActivity.class));
 		        }
             	LoadActivity.this.finish();
 			}

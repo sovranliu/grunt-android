@@ -9,6 +9,7 @@ import com.slfuture.pluto.communication.response.JSONResponse;
 import com.slfuture.pluto.view.annotation.ResourceView;
 import com.slfuture.pluto.view.component.ActivityEx;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -62,7 +63,10 @@ public class LoginActivity extends ActivityEx {
 							return;
 						}
 						JSONVisitor dataVisitor = content.getVisitor("data");
-						Logic.login(dataVisitor.getInteger("id", 0), dataVisitor.getString("username"), dataVisitor.getString("password"), dataVisitor.getString("name"), dataVisitor.getString("token"));
+						Logic.login(dataVisitor.getInteger("id", 0), dataVisitor.getString("username"), dataVisitor.getString("password"), dataVisitor.getString("name"), dataVisitor.getString("photo"), dataVisitor.getString("token"));
+						Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+						LoginActivity.this.startActivity(intent);
+						LoginActivity.this.finish();
 					}
 				}, txtUsername.getText().toString(), txtPassword.getText().toString());
 			}

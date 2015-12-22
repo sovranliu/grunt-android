@@ -1,13 +1,14 @@
 package com.wehop.grunt.view.form;
 
+import com.slfuture.pluto.view.annotation.ResourceView;
+import com.slfuture.pluto.view.component.FragmentActivityEx;
 import com.wehop.grunt.R;
 import com.wehop.grunt.base.Logger;
 
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
 import android.view.Menu;
-import android.view.Window;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TabHost;
 import android.widget.RadioGroup.OnCheckedChangeListener;
@@ -17,7 +18,8 @@ import android.widget.TextView;
 /**
  * 主界面
  */
-public class MainActivity extends FragmentActivity {
+@ResourceView(id = R.layout.activity_main)
+public class MainActivity extends FragmentActivityEx {
 	/**
 	 * 选项卡个数
 	 */
@@ -27,8 +29,14 @@ public class MainActivity extends FragmentActivity {
 	/**
      * 选项卡对象
      */
-    protected TabHost tabhost = null;
-
+    @ResourceView(id = R.id.main_tabhost)
+    public TabHost tabhost = null;
+    @ResourceView(id = R.id.main_tab_home)
+    public RadioButton btnHome = null;
+    @ResourceView(id = R.id.main_tab_task)
+    public RadioButton btnTask = null;
+    @ResourceView(id = R.id.main_tab_user)
+    public RadioButton btnUser = null;
 
     /**
      * 界面创建
@@ -37,10 +45,7 @@ public class MainActivity extends FragmentActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Logger.i("call MainActivity.onCreate()");
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
-        setContentView(R.layout.activity_main);
         //
-        tabhost = (TabHost)findViewById(R.id.main_tabhost);
         tabhost.setup();
         tabhost.addTab(tabhost.newTabSpec("main_tab_home").setIndicator("").setContent(R.id.main_fragment_home));
         tabhost.addTab(tabhost.newTabSpec("main_tab_task").setIndicator("").setContent(R.id.main_fragment_task));
@@ -54,12 +59,21 @@ public class MainActivity extends FragmentActivity {
                 switch(checkedId) {
                     case R.id.main_tab_home:
                         tabhost.setCurrentTabByTag("main_tab_home");
+                        btnHome.setTextColor(getResources().getColor(R.color.white));
+                        btnTask.setTextColor(getResources().getColor(R.color.green));
+                        btnUser.setTextColor(getResources().getColor(R.color.green));
                         break;
                     case R.id.main_tab_task:
                         tabhost.setCurrentTabByTag("main_tab_task");
+                        btnHome.setTextColor(getResources().getColor(R.color.green));
+                        btnTask.setTextColor(getResources().getColor(R.color.white));
+                        btnUser.setTextColor(getResources().getColor(R.color.green));
                         break;
                     case R.id.main_tab_user:
                         tabhost.setCurrentTabByTag("main_tab_user");
+                        btnHome.setTextColor(getResources().getColor(R.color.green));
+                        btnTask.setTextColor(getResources().getColor(R.color.green));
+                        btnUser.setTextColor(getResources().getColor(R.color.white));
                         break;
                 }
             }

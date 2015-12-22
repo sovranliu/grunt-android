@@ -1,11 +1,10 @@
 package com.wehop.grunt.view.form;
 
 import com.slfuture.pluto.view.annotation.ResourceView;
-import com.slfuture.pluto.view.component.ActivityEx;
+import com.slfuture.pluto.view.component.FragmentEx;
 import com.wehop.grunt.R;
 
 import android.net.Uri;
-import android.os.Bundle;
 import android.content.Intent;
 import android.view.View;
 import android.view.animation.Animation;
@@ -18,19 +17,23 @@ import android.webkit.WebViewClient;
 import android.widget.ImageView;
 
 /**
- * 浏览器页
+ * 任务页
  */
-@ResourceView(id = R.layout.activity_web)
-public class WebActivity extends ActivityEx {
+@ResourceView(id = R.layout.activity_task)
+public class TaskActivity extends FragmentEx {
+	/**
+	 * 入口URL
+	 */
+	public final static String URL = "http://www.baidu.com";
 	/**
 	 * 引导对象
 	 */
-	@ResourceView(id = R.id.web_image_load)
+	@ResourceView(id = R.id.task_image_load)
 	public ImageView load = null;
 	/**
 	 * 浏览器对象
 	 */
-	@ResourceView(id = R.id.web_browser)
+	@ResourceView(id = R.id.task_browser)
 	public WebView browser = null;
 	/**
 	 * 加载的URL
@@ -39,8 +42,8 @@ public class WebActivity extends ActivityEx {
 
 
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
+	public void onStart() {
+		super.onStart();
 		//
 		prepare();
 		load();
@@ -58,7 +61,7 @@ public class WebActivity extends ActivityEx {
 	 * 准备数据
 	 */
 	public void prepareData() {
-		this.url = this.getIntent().getStringExtra("url");
+		this.url = URL;
 	}
 
 	/**
@@ -106,7 +109,7 @@ public class WebActivity extends ActivityEx {
 		if(null == url) {
 			return;
 		}
-		Animation animation = AnimationUtils.loadAnimation(this, R.anim.ratote);  
+		Animation animation = AnimationUtils.loadAnimation(this.getActivity(), R.anim.ratote);  
 		animation.setInterpolator(new LinearInterpolator());
 		load.setVisibility(View.VISIBLE);
 		load.startAnimation(animation);
