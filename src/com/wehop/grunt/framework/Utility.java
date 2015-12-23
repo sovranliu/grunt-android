@@ -11,8 +11,11 @@ import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
 
+import com.slfuture.carrie.base.etc.Serial;
+import com.slfuture.carrie.base.model.core.IEventable;
 import com.slfuture.carrie.base.time.DateTime;
 import com.slfuture.carrie.base.time.Duration;
+import com.slfuture.pluto.etc.Control;
 import com.wehop.grunt.Program;
 import com.wehop.grunt.R;
 import com.wehop.grunt.framework.qcode.CaptureActivity;
@@ -276,10 +279,13 @@ public class Utility {
 	 * 扫描二维码
 	 * 
 	 * @param context 上下文
-	 * @param requestId 请求ID
+	 * @param callback 回调
 	 */
-	public static void capture(Activity context, int requestId) {
+	public static void capture(Activity context, IEventable<String> callback) {
 		Intent intent = new Intent(context, CaptureActivity.class);
-		context.startActivityForResult(intent, requestId);
+		int commandId = Serial.makeLoopInteger();
+		intent.putExtra("commandId", commandId);
+		Control.<String>doJoin(commandId, callback);
+		context.startActivity(intent);
 	}
 }

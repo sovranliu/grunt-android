@@ -3,7 +3,6 @@ package com.wehop.grunt.view.form;
 import com.slfuture.pluto.view.annotation.ResourceView;
 import com.slfuture.pluto.view.component.FragmentEx;
 import com.wehop.grunt.R;
-import com.wehop.grunt.framework.Utility;
 import com.wehop.grunt.view.control.WebViewEx;
 
 import android.net.Uri;
@@ -49,14 +48,6 @@ public class HomeActivity extends FragmentEx {
 		//
 		prepare();
 		load();
-	}
-	
-	@Override
-	public void onActivityResult(int requestCode, int resultCode, Intent data) {
-		switch (requestCode) {
-			case WebViewEx.MESSAGE_ID_CAPTURE:
-				browser.callback(data.getStringExtra("result"));
-		}
 	}
 
 	/**

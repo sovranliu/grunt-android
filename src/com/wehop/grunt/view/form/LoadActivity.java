@@ -7,7 +7,6 @@ import com.wehop.grunt.base.Logger;
 import com.wehop.grunt.business.Logic;
 import com.wehop.grunt.framework.DynamicConfig;
 import com.wehop.grunt.framework.Storage;
-import com.wehop.grunt.framework.qcode.CaptureActivity;
 import com.slfuture.pluto.etc.Control;
 import com.slfuture.pluto.view.annotation.ResourceView;
 import com.slfuture.pluto.view.component.ActivityEx;
@@ -59,7 +58,6 @@ public class LoadActivity extends ActivityEx {
 			@Override
 			public void run() {
 		        if(null == Logic.user) {
-		        	// startActivity(new Intent(LoadActivity.this, CaptureActivity.class));
 		        	startActivity(new Intent(LoadActivity.this, LoginActivity.class));
 		        }
 		        else {

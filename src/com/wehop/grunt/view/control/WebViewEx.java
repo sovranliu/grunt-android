@@ -1,10 +1,13 @@
 package com.wehop.grunt.view.control;
 
-import java.util.LinkedList;
 import java.util.List;
+
+import com.slfuture.carrie.base.model.core.IEventable;
 import com.slfuture.pluto.js.BridgeHandler;
 import com.slfuture.pluto.js.CallBackFunction;
-import com.slfuture.pluto.sensor.Position;
+import com.slfuture.pluto.sensor.Location;
+import com.slfuture.pluto.sensor.LocationSensor;
+import com.slfuture.pluto.sensor.core.ILocationListener;
 import com.wehop.grunt.base.Logger;
 import com.wehop.grunt.framework.Utility;
 
@@ -16,16 +19,6 @@ import android.util.AttributeSet;
  * 拓展WebView
  */
 public class WebViewEx extends com.slfuture.pluto.js.BridgeWebView {
-	/**
-	 * 
-	 */
-	public final static int MESSAGE_ID_CAPTURE = 999;
-	/**
-	 * 消息与回调映射
-	 */
-	private List<CallBackFunction> callbacks = new LinkedList<CallBackFunction>();
-	
-	
 	public WebViewEx(Context context, AttributeSet attrs) {
 		super(context, attrs);
 	}
@@ -39,13 +32,17 @@ public class WebViewEx extends com.slfuture.pluto.js.BridgeWebView {
 	}
 
 	public void prepare() {
-		Position.initialize(this.getContext());
 		registerHandler("capture", new BridgeHandler() {
 			@Override
 			public void handler(String data, CallBackFunction function) {
 				Logger.i("capture(" + data + ") execute");
-				callbacks.add(function);
-				Utility.capture((Activity) WebViewEx.this.getContext(), MESSAGE_ID_CAPTURE);
+				final CallBackFunction fFunction = function;
+				Utility.capture((Activity) WebViewEx.this.getContext(), new IEventable<String>() {
+					@Override
+					public void on(String data) {
+						fFunction.onCallBack(data);
+					}
+				});
             }
 		});
 		registerHandler("wifi", new BridgeHandler() {
@@ -77,22 +74,16 @@ public class WebViewEx extends com.slfuture.pluto.js.BridgeWebView {
 		registerHandler("gps", new BridgeHandler() {
 			@Override
 			public void handler(String data, CallBackFunction function) {
+				final CallBackFunction callbackFunction = function;
+				LocationSensor.fetchCurrentLocation(new ILocationListener() {
+					@Override
+					public void onListen(Location location) {
+						String result = "{\"latitude\":\"" + location.latitude + "\", \"longitude\":\"" + location.longitude + "\"}";
+						callbackFunction.onCallBack(result);
+					}
+				}, 2000);
 				Logger.i("gps(" + data + ") execute");
-				String result = "{\"latitude\":\"" + Position.currentLatitude + "\", \"longitude\":\"" + Position.currentLongitude + "\"}";
-				function.onCallBack(result);
             }
 		});
-	}
-
-	/**
-	 * 回调处理
-	 * 
-	 * @param data 数据
-	 */
-	public void callback(String data) {
-		for(CallBackFunction function : callbacks) {
-			function.onCallBack(data);
-		}
-		callbacks.clear();
 	}
 }

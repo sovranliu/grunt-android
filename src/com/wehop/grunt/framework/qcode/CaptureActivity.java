@@ -19,6 +19,7 @@ import android.view.SurfaceView;
 
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.Result;
+import com.slfuture.pluto.etc.Control;
 import com.wehop.grunt.R;
 import com.wehop.grunt.framework.qcode.camera.CameraManager;
 import com.wehop.grunt.framework.qcode.decoding.CaptureActivityHandler;
@@ -26,6 +27,11 @@ import com.wehop.grunt.framework.qcode.decoding.InactivityTimer;
 import com.wehop.grunt.framework.qcode.view.ViewfinderView;
 
 public class CaptureActivity extends Activity implements Callback {
+	/**
+	 * 请求命令ID
+	 */
+	public int commandId;
+	
 	private CaptureActivityHandler handler;
 	private ViewfinderView viewfinderView;
 	private boolean hasSurface;
@@ -47,6 +53,7 @@ public class CaptureActivity extends Activity implements Callback {
 		viewfinderView = (ViewfinderView) findViewById(R.id.viewfinder_view);
 		hasSurface = false;
 		inactivityTimer = new InactivityTimer(this);
+		commandId = this.getIntent().getIntExtra("commandId", 0);
 	}
 
 	@Override
@@ -162,6 +169,7 @@ public class CaptureActivity extends Activity implements Callback {
 		//
 		Intent intent = new Intent();
 		intent.putExtra("result", obj.getText());
+		Control.<String>doMerge(commandId, obj.getText());
 		CaptureActivity.this.setResult(1, intent);
 		CaptureActivity.this.finish();
 	}
