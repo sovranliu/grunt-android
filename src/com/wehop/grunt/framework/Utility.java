@@ -262,6 +262,7 @@ public class Utility {
 	 */
 	public static List<String> scanWIFI() {
 		WifiManager manager = (WifiManager) Program.application.getSystemService(Context.WIFI_SERVICE);  
+		manager.startScan();
 		List<ScanResult> list = manager.getScanResults();
 		Collections.sort(list,new Comparator<ScanResult>(){
             public int compare(ScanResult arg0, ScanResult arg1) {

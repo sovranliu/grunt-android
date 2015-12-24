@@ -3,6 +3,7 @@ package com.wehop.grunt.view.form;
 import com.wehop.grunt.R;
 import com.wehop.grunt.base.Logger;
 import com.wehop.grunt.business.Logic;
+import com.slfuture.carrie.base.etc.Serial;
 import com.slfuture.carrie.base.json.JSONVisitor;
 import com.slfuture.pluto.communication.Host;
 import com.slfuture.pluto.communication.response.JSONResponse;
@@ -55,9 +56,14 @@ public class LoginActivity extends ActivityEx {
 					Toast.makeText(LoginActivity.this, "请填写密码", Toast.LENGTH_LONG).show();
 					return;
 				}
+				String md5 = Serial.getMD5String(txtPassword.getText().toString()).toLowerCase();
+				md5 = md5.substring(8, 24);
 				Host.doCommand("login", new JSONResponse(LoginActivity.this) {
 					@Override
 					public void onFinished(JSONVisitor content) {
+						if(null == content) {
+							return;
+						}
 						if(content.getInteger("code", -1) < 0) {
 							txtPassword.setText("");
 							return;
@@ -68,7 +74,7 @@ public class LoginActivity extends ActivityEx {
 						LoginActivity.this.startActivity(intent);
 						LoginActivity.this.finish();
 					}
-				}, txtUsername.getText().toString(), txtPassword.getText().toString());
+				}, txtUsername.getText().toString(), md5);
 			}
 		});
 	}

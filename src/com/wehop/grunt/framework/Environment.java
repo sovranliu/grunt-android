@@ -2,6 +2,7 @@ package com.wehop.grunt.framework;
 
 import com.slfuture.pluto.communication.Host;
 import com.slfuture.pluto.config.Configuration;
+import com.slfuture.pluto.sensor.LocationSensor;
 import com.wehop.grunt.Program;
 import com.wehop.grunt.base.Logger;
 
@@ -28,6 +29,10 @@ public class Environment {
 		// 初始化动态配置
 		if(!DynamicConfig.initialize()) {
 			Logger.e("DynamicConfig initialize failed");
+			return false;
+		}
+		if(!LocationSensor.initialize(Program.application)) {
+			Logger.e("LocationSensor initialize failed");
 			return false;
 		}
 		return true;

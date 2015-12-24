@@ -104,6 +104,39 @@
         android:layout_width="match_parent"
         android:layout_below="@id/user_layout_telephone"
 		android:background="@drawable/divider" />
+	<RelativeLayout
+        android:id="@+id/user_layout_paper"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+       	android:layout_below ="@+id/user_image_divide3"
+		android:background="@color/white">
+        <TextView
+            android:id="@+id/user_label_paper"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+           	android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"
+            android:text="问卷调查"
+            android:textColor="@color/black"
+            android:textSize="18sp" />
+	    <ImageView
+			android:id="@+id/user_image_paper_more"
+	       	android:layout_width="20dp"
+	       	android:layout_height="20dp"
+		    android:layout_centerVertical="true"
+			android:layout_alignParentRight="true"
+	       	android:layout_marginRight="20dp"
+	    	android:background="@drawable/arrow_right"
+		    android:clickable="true" 
+		    android:focusable="false" />
+	</RelativeLayout>
+	<ImageView 
+        android:id="@+id/user_image_divide4"
+		android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_below="@id/user_layout_paper"
+		android:background="@drawable/divider" />
 	<Button
         android:id="@+id/user_button_exit"
 		android:layout_height="50dp"

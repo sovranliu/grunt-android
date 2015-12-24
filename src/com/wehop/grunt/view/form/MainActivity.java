@@ -1,10 +1,15 @@
 package com.wehop.grunt.view.form;
 
+import com.slfuture.carrie.base.json.JSONVisitor;
+import com.slfuture.pluto.communication.Host;
+import com.slfuture.pluto.communication.response.JSONResponse;
 import com.slfuture.pluto.view.annotation.ResourceView;
 import com.slfuture.pluto.view.component.FragmentActivityEx;
 import com.wehop.grunt.R;
 import com.wehop.grunt.base.Logger;
+import com.wehop.grunt.business.Logic;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Menu;
@@ -90,6 +95,7 @@ public class MainActivity extends FragmentActivityEx {
 		        }
 			}
         });
+        check();
     }
 
     @Override
@@ -100,5 +106,26 @@ public class MainActivity extends FragmentActivityEx {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+    }
+
+    /**
+     * 检查用户合法性
+     */
+    public void check() {
+    	Host.doCommand("check", new JSONResponse(MainActivity.this) {
+			@Override
+			public void onFinished(JSONVisitor content) {
+				if(null == content) {
+					return;
+				}
+				if(1 == content.getInteger("code", 0)) {
+					return;
+				}
+				Logic.logout();
+				// 切入登录页
+				MainActivity.this.finish();
+				MainActivity.this.startActivity(new Intent(MainActivity.this, LoginActivity.class));
+			}
+    	}, Logic.user.username, Logic.user.token);
     }
 }

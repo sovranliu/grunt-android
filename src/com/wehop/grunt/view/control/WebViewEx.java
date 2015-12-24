@@ -78,6 +78,10 @@ public class WebViewEx extends com.slfuture.pluto.js.BridgeWebView {
 				LocationSensor.fetchCurrentLocation(new ILocationListener() {
 					@Override
 					public void onListen(Location location) {
+						if(null == location) {
+							callbackFunction.onCallBack("");
+							return;
+						}
 						String result = "{\"latitude\":\"" + location.latitude + "\", \"longitude\":\"" + location.longitude + "\"}";
 						callbackFunction.onCallBack(result);
 					}

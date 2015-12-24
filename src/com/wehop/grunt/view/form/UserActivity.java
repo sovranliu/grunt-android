@@ -6,7 +6,6 @@ import com.slfuture.pluto.view.annotation.ResourceView;
 import com.slfuture.pluto.view.component.FragmentEx;
 import com.wehop.grunt.R;
 import com.wehop.grunt.business.Logic;
-import com.wehop.grunt.framework.Storage;
 import com.wehop.grunt.framework.Utility;
 
 import android.content.Intent;
@@ -27,6 +26,10 @@ public class UserActivity extends FragmentEx {
 	 */
 	public final static String URL_ABOUT = "http://www.baidu.com";
 	/**
+	 * 关于我们URL
+	 */
+	public final static String URL_PAPER = "http://www.diaoyanbao.com/answer/load/7uHEqXF8";
+	/**
 	 * 热线电话
 	 */
 	public final static String TELEPHONE_US = "15021819287";
@@ -40,6 +43,8 @@ public class UserActivity extends FragmentEx {
 	public View layAbout;
 	@ResourceView(id = R.id.user_layout_telephone)
 	public View layTelephone;
+	@ResourceView(id = R.id.user_layout_paper)
+	public View layPaper;
 	@ResourceView(id = R.id.user_button_exit)
 	public Button btnExit;
 
@@ -90,11 +95,18 @@ public class UserActivity extends FragmentEx {
 	            startActivity(intent);
 			}
 		});
+		layPaper.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				Intent intent = new Intent(UserActivity.this.getActivity(), WebActivity.class);
+				intent.putExtra("url", URL_PAPER);
+				startActivity(intent);
+			}
+		});
 		btnExit.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				Logic.user = null;
-				Storage.save();
+				Logic.logout();
 				// 切入登录页
 				UserActivity.this.getActivity().startActivity(new Intent(UserActivity.this.getActivity(), LoginActivity.class));
 				UserActivity.this.getActivity().finish();

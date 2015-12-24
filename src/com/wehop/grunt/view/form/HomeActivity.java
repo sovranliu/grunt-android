@@ -14,7 +14,6 @@ import android.view.animation.LinearInterpolator;
 import android.webkit.DownloadListener;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
-import android.webkit.WebViewClient;
 import android.widget.ImageView;
 
 /**
@@ -25,7 +24,8 @@ public class HomeActivity extends FragmentEx {
 	/**
 	 * 入口URL
 	 */
-	public final static String URL = "http://www.baidu.com";
+	//public final static String URL = "http://cdn.oss.wehop-resources-beta.wehop.cn/sales/app/sites/v-1/index.html?token=";
+	public final static String URL = "file:///android_asset/webview.html";
 	/**
 	 * 引导对象
 	 */
@@ -62,7 +62,7 @@ public class HomeActivity extends FragmentEx {
 	 * 准备数据
 	 */
 	public void prepareData() {
-		this.url = URL;
+		this.url = URL; // + Logic.user.token;
 	}
 
 	/**
@@ -72,19 +72,20 @@ public class HomeActivity extends FragmentEx {
 		browser.getSettings().setJavaScriptEnabled(true);
 		browser.requestFocus();
 		browser.setScrollBarStyle(WebView.SCROLLBARS_OUTSIDE_OVERLAY);
-		browser.setWebViewClient(new WebViewClient() {
-			@Override
-			public boolean shouldOverrideUrlLoading(WebView view, String url) {
-				if(url.startsWith("mailto:") || url.startsWith("geo:") ||url.startsWith("tel:")) {
-					Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
-	                startActivity(intent);
-	                browser.pauseTimers();
-	                return false;
-	            }
-				browser.loadUrl(url);
-	            return true;
-			}
-		});
+//		browser.setWebViewClient(new WebViewClient() {
+//			@Override
+//			public boolean shouldOverrideUrlLoading(WebView view, String url) {
+//				if(url.startsWith("mailto:") || url.startsWith("geo:") ||url.startsWith("tel:")) {
+//					Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+//	                startActivity(intent);
+//	                browser.pauseTimers();
+//	                return false;
+//	            }
+//				browser.loadUrl(url);
+//	            return true;
+//			}
+//		});
+		// browser.setDefaultHandler(new com.slfuture.pluto.js.DefaultHandler());
 		browser.setWebChromeClient(new WebChromeClient() {
 			@Override
 			public void onProgressChanged(WebView view, int newProgress) {
@@ -101,7 +102,6 @@ public class HomeActivity extends FragmentEx {
 	            startActivity(intent);  
 	        }
 		});
-		browser.prepare();
 	}
 
 	/**
@@ -118,5 +118,7 @@ public class HomeActivity extends FragmentEx {
 		//
 		browser.setVisibility(View.INVISIBLE);
 		browser.loadUrl(url);
+		//
+		browser.prepare();
 	}
 }

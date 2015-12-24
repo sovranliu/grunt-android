@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>测试webview</title>
+  </head>
+  <body>
+
+    <button type="button" name="button" id="id-test-gps">测试gps</button>
+    <button type="button" name="button" id="id-test-wifi">测试wifi</button>
+    <button type="button" name="button" id="id-test-qrcode">测试QRcode</button>
+
+  </body>
+
+<script type="text/javascript">
+
+
+
+  var gps = document.getElementById("id-test-gps");
+  var wifi = document.getElementById("id-test-wifi");
+  var qrcode = document.getElementById("id-test-qrcode");
+
+  gps.addEventListener('click', function(){
+    console.log("gps clicked.");
+    window.WebViewJavascriptBridge.callHandler(
+      'gps', null,
+      function(gps_data) {
+        var gps = gps_data;
+        alert(gps);
+      }
+    );
+  });
+
+  wifi.addEventListener('click', function(){
+    console.log("wifi clicked.");
+    window.WebViewJavascriptBridge.callHandler(
+      'wifi', null,
+      function(wifi_data) {
+        var wifi = wifi_data;
+        alert(wifi);
+      }
+    );
+  });
+
+  qrcode.addEventListener('click', function(){
+    console.log("qrcode clicked.");
+    window.WebViewJavascriptBridge.callHandler(
+      'capture', null,
+      function(data) {
+        alert(data);
+      }
+    );
+  });
+
+  
+  connectWebViewJavascriptBridge(function(bridge) {
+		bridge.init(function(message, responseCallback) {
+			console.log('JS got a message', message);
+			var data = {
+				'Javascript Responds': 'Wee!'
+			};
+			console.log('JS responding with', data);
+			responseCallback(data);
+		});
+
+		bridge.registerHandler("functionInJs", function(data, responseCallback) {
+			document.getElementById("show").innerHTML = ("data from Java: = " + data);
+			var responseData = "Javascript Says Right back aka!";
+			responseCallback(responseData);
+		});
+	});
+</script>
+
+</html>

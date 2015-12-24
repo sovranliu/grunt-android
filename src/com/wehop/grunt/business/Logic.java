@@ -57,6 +57,14 @@ public class Logic {
 		user = new Me(id, username, password, name, photo, token);
 		save();
 	}
+	
+	/**
+	 * 退登
+	 */
+	public static void logout() {
+		Logic.user = null;
+		clear();
+	}
 
 	/**
 	 * 保存用户信息
@@ -71,6 +79,16 @@ public class Logic {
 		}
 		catch (IOException e) {
 			Logger.e("restore user information failed", e);
+		}
+	}
+	
+	/**
+	 * 清理
+	 */
+	public static void clear() {
+		File file = new File(Storage.DATA_ROOT + "me.dat");
+		if(file.exists()) {
+			file.delete();
 		}
 	}
 }

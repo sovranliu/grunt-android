@@ -89,9 +89,9 @@ public final class R {
         public static final int encode_succeeded=0x7f080005;
         public static final int home_browser=0x7f08000f;
         public static final int home_image_load=0x7f08000e;
-        public static final int imageselect_camera=0x7f080033;
-        public static final int imageselect_cancel=0x7f080035;
-        public static final int imageselect_phone=0x7f080034;
+        public static final int imageselect_camera=0x7f080037;
+        public static final int imageselect_cancel=0x7f080039;
+        public static final int imageselect_phone=0x7f080038;
         public static final int launch_product_query=0x7f080006;
         public static final int load_image_logo=0x7f080011;
         public static final int load_image_poster=0x7f080012;
@@ -118,23 +118,27 @@ public final class R {
         public static final int search_book_contents_succeeded=0x7f08000b;
         public static final int task_browser=0x7f080023;
         public static final int task_image_load=0x7f080022;
-        public static final int user_button_exit=0x7f080030;
+        public static final int user_button_exit=0x7f080034;
         public static final int user_image_about_more=0x7f08002a;
         public static final int user_image_divide1=0x7f080027;
         public static final int user_image_divide2=0x7f08002b;
         public static final int user_image_divide3=0x7f08002f;
+        public static final int user_image_divide4=0x7f080033;
         public static final int user_image_divide_bottom=0x7f080010;
+        public static final int user_image_paper_more=0x7f080032;
         public static final int user_image_photo=0x7f080025;
         public static final int user_image_telephone_more=0x7f08002e;
         public static final int user_label_about=0x7f080029;
         public static final int user_label_name=0x7f080026;
+        public static final int user_label_paper=0x7f080031;
         public static final int user_label_telephone=0x7f08002d;
         public static final int user_layout_about=0x7f080028;
         public static final int user_layout_bar=0x7f080024;
+        public static final int user_layout_paper=0x7f080030;
         public static final int user_layout_telephone=0x7f08002c;
         public static final int viewfinder_view=0x7f08000d;
-        public static final int web_browser=0x7f080032;
-        public static final int web_image_load=0x7f080031;
+        public static final int web_browser=0x7f080036;
+        public static final int web_image_load=0x7f080035;
     }
     public static final class layout {
         public static final int activity_capture=0x7f030000;
