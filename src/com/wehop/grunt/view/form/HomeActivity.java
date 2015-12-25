@@ -6,8 +6,9 @@ import com.wehop.grunt.R;
 import com.wehop.grunt.business.Logic;
 import com.wehop.grunt.view.control.WebViewEx;
 
-import android.net.Uri;
 import android.content.Intent;
+import android.net.Uri;
+import android.os.Bundle;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -25,8 +26,7 @@ public class HomeActivity extends FragmentEx {
 	/**
 	 * 入口URL
 	 */
-	public final static String URL = "http://cdn.oss.wehop-resources-beta.wehop.cn/sales/app/sites/v-1/index.html?token=";
-	// public final static String URL = "file:///android_asset/webview.html";
+	public final static String URL = "http://cdn.oss.wehop-resources-beta.wehop.cn/sales/app/sites/v-1/index.html";
 	/**
 	 * 引导对象
 	 */
@@ -44,8 +44,8 @@ public class HomeActivity extends FragmentEx {
 
 
 	@Override
-	public void onStart() {
-		super.onStart();
+	public void onActivityCreated(Bundle savedInstanceState) {
+		super.onActivityCreated(savedInstanceState);
 		//
 		prepare();
 		load();
@@ -63,7 +63,7 @@ public class HomeActivity extends FragmentEx {
 	 * 准备数据
 	 */
 	public void prepareData() {
-		this.url = URL + Logic.user.token;
+		this.url = URL + "?token=" + Logic.user.token;
 	}
 
 	/**
@@ -86,12 +86,14 @@ public class HomeActivity extends FragmentEx {
 //	            return true;
 //			}
 //		});
-		// browser.setDefaultHandler(new com.slfuture.pluto.js.DefaultHandler());
+		browser.setDefaultHandler(new com.slfuture.pluto.js.DefaultHandler());
 		browser.setWebChromeClient(new WebChromeClient() {
 			@Override
 			public void onProgressChanged(WebView view, int newProgress) {
 				if(100 == newProgress) {
 					view.setVisibility(View.VISIBLE);
+					load.setVisibility(View.GONE);
+					load.clearAnimation();
 				}
 			}
 		});

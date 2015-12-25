@@ -57,6 +57,17 @@ public class LoadActivity extends ActivityEx {
 		Control.doDelay(new Runnable() {
 			@Override
 			public void run() {
+//				LocationSensor.fetchCurrentLocation(new ILocationListener() {
+//					@Override
+//					public void onListen(Location location) {
+//						if(null == location) {
+//							return;
+//						}
+//						String result = "{\"latitude\":\"" + location.latitude + "\", \"longitude\":\"" + location.longitude + "\"}";
+//					}
+//				}, 2000);
+//				
+//				return;
 		        if(null == Logic.user) {
 		        	startActivity(new Intent(LoadActivity.this, LoginActivity.class));
 		        }

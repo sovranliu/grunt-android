@@ -23,7 +23,7 @@
 			</intent-filter>
 		</activity>
 		<activity android:name="com.wehop.grunt.view.form.LoginActivity" android:label="@string/app_name" android:screenOrientation="portrait" android:theme="@android:style/Theme.Holo.Light.NoActionBar" />
-		<activity android:name="com.wehop.grunt.view.form.MainActivity" android:label="@string/app_name" android:screenOrientation="portrait" android:theme="@android:style/Theme.Holo.Light.NoActionBar" />
+		<activity android:name="com.wehop.grunt.view.form.MainActivity" android:label="@string/app_name" android:windowSoftInputMode="adjustPan|stateHidden" android:screenOrientation="portrait" android:theme="@android:style/Theme.Holo.Light.NoActionBar" />
 		<activity android:name="com.wehop.grunt.view.form.WebActivity" android:label="@string/app_name" android:screenOrientation="portrait" android:theme="@android:style/Theme.Holo.Light.NoActionBar" />
 		<activity android:name="com.wehop.grunt.framework.qcode.CaptureActivity"
 			android:screenOrientation="landscape" android:configChanges="orientation|keyboardHidden"

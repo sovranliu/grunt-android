@@ -56,7 +56,6 @@ public class MainActivity extends FragmentActivityEx {
         tabhost.addTab(tabhost.newTabSpec("main_tab_task").setIndicator("").setContent(R.id.main_fragment_task));
         tabhost.addTab(tabhost.newTabSpec("main_tab_user").setIndicator("").setContent(R.id.main_fragment_user));
         RadioGroup group = (RadioGroup)findViewById(R.id.main_tab);
-        group.check(R.id.main_tab_home);
         group.setOnCheckedChangeListener(new OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup radioGroup, int checkedId) {
@@ -83,6 +82,10 @@ public class MainActivity extends FragmentActivityEx {
                 }
             }
         });
+        group.check(R.id.main_tab_home);
+        btnHome.setTextColor(getResources().getColor(R.color.white));
+        btnTask.setTextColor(getResources().getColor(R.color.green));
+        btnUser.setTextColor(getResources().getColor(R.color.green));
         tabhost.setOnTabChangedListener(new OnTabChangeListener() {
 			@Override
 			public void onTabChanged(String tabId) {

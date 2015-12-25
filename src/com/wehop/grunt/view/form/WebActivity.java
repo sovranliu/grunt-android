@@ -3,6 +3,7 @@ package com.wehop.grunt.view.form;
 import com.slfuture.pluto.view.annotation.ResourceView;
 import com.slfuture.pluto.view.component.ActivityEx;
 import com.wehop.grunt.R;
+import com.wehop.grunt.view.control.WebViewEx;
 
 import android.net.Uri;
 import android.os.Bundle;
@@ -31,7 +32,7 @@ public class WebActivity extends ActivityEx {
 	 * 浏览器对象
 	 */
 	@ResourceView(id = R.id.web_browser)
-	public WebView browser = null;
+	public WebViewEx browser = null;
 	/**
 	 * 加载的URL
 	 */
@@ -81,11 +82,14 @@ public class WebActivity extends ActivityEx {
 	            return true;
 			}
 		});
+		browser.setDefaultHandler(new com.slfuture.pluto.js.DefaultHandler());
 		browser.setWebChromeClient(new WebChromeClient() {
 			@Override
 			public void onProgressChanged(WebView view, int newProgress) {
 				if(100 == newProgress) {
 					view.setVisibility(View.VISIBLE);
+					load.setVisibility(View.GONE);
+					load.clearAnimation();
 				}
 			}
 		});

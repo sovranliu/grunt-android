@@ -11,6 +11,7 @@ import com.wehop.grunt.framework.Utility;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -26,7 +27,7 @@ public class UserActivity extends FragmentEx {
 	 */
 	public final static String URL_ABOUT = "http://cdn.oss.wehop-resources-beta.wehop.cn/sales/app/sites/v-1/about_us.html";
 	/**
-	 * 关于我们URL
+	 * 问卷调查URL
 	 */
 	public final static String URL_PAPER = "http://www.diaoyanbao.com/answer/load/7uHEqXF8";
 	/**
@@ -50,8 +51,8 @@ public class UserActivity extends FragmentEx {
 
 
 	@Override
-	public void onStart() {
-		super.onStart();
+	public void onActivityCreated(Bundle savedInstanceState) {
+		super.onActivityCreated(savedInstanceState);
 		prepare();
 	}
 
