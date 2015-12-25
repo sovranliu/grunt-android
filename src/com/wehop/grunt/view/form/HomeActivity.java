@@ -3,6 +3,7 @@ package com.wehop.grunt.view.form;
 import com.slfuture.pluto.view.annotation.ResourceView;
 import com.slfuture.pluto.view.component.FragmentEx;
 import com.wehop.grunt.R;
+import com.wehop.grunt.business.Logic;
 import com.wehop.grunt.view.control.WebViewEx;
 
 import android.net.Uri;
@@ -62,7 +63,7 @@ public class HomeActivity extends FragmentEx {
 	 * 准备数据
 	 */
 	public void prepareData() {
-		this.url = URL; // + Logic.user.token;
+		this.url = URL + Logic.user.token;
 	}
 
 	/**

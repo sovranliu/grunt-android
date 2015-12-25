@@ -24,7 +24,7 @@ public class UserActivity extends FragmentEx {
 	/**
 	 * 关于我们URL
 	 */
-	public final static String URL_ABOUT = "http://www.baidu.com";
+	public final static String URL_ABOUT = "http://cdn.oss.wehop-resources-beta.wehop.cn/sales/app/sites/v-1/about_us.html";
 	/**
 	 * 关于我们URL
 	 */
@@ -32,7 +32,7 @@ public class UserActivity extends FragmentEx {
 	/**
 	 * 热线电话
 	 */
-	public final static String TELEPHONE_US = "15021819287";
+	public final static String TELEPHONE_US = "13816202676";
 
 
 	@ResourceView(id = R.id.user_image_photo)
