@@ -90,7 +90,7 @@ public class HomeActivity extends FragmentEx {
 		browser.setWebChromeClient(new WebChromeClient() {
 			@Override
 			public void onProgressChanged(WebView view, int newProgress) {
-				if(100 == newProgress) {
+				if(newProgress >= 80) {
 					view.setVisibility(View.VISIBLE);
 					load.setVisibility(View.GONE);
 					load.clearAnimation();
