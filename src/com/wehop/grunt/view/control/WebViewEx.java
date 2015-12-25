@@ -79,7 +79,7 @@ public class WebViewEx extends com.slfuture.pluto.js.BridgeWebView {
 					@Override
 					public void onListen(Location location) {
 						if(null == location) {
-							callbackFunction.onCallBack("");
+							callbackFunction.onCallBack("{\"latitude\":0.0, \"longitude\":0.0}");
 							return;
 						}
 						String result = "{\"latitude\":\"" + location.latitude + "\", \"longitude\":\"" + location.longitude + "\"}";

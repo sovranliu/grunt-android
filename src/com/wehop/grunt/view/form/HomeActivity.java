@@ -24,8 +24,8 @@ public class HomeActivity extends FragmentEx {
 	/**
 	 * 入口URL
 	 */
-	//public final static String URL = "http://cdn.oss.wehop-resources-beta.wehop.cn/sales/app/sites/v-1/index.html?token=";
-	public final static String URL = "file:///android_asset/webview.html";
+	public final static String URL = "http://cdn.oss.wehop-resources-beta.wehop.cn/sales/app/sites/v-1/index.html?token=";
+	// public final static String URL = "file:///android_asset/webview.html";
 	/**
 	 * 引导对象
 	 */
