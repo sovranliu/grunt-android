@@ -60,7 +60,7 @@ app/ajax/config#version=[1]
 	<protocol name="login">
 	    <path>
 		<![CDATA[
-sales-platform-web-1.0-SNAPSHOT/rest/login#username=[1]&password=[2]
+sales-platform-web/rest/login#username=[1]&password=[2]
 		]]>
         </path>
 	    <mock>
@@ -82,7 +82,7 @@ sales-platform-web-1.0-SNAPSHOT/rest/login#username=[1]&password=[2]
 	<protocol name="check">
 	    <path>
 		<![CDATA[
-sales-platform-web-1.0-SNAPSHOT/rest/validateToken#username=[1]&token=[2]
+sales-platform-web/rest/validateToken#username=[1]&token=[2]
 		]]>
         </path>
 	    <mock>
