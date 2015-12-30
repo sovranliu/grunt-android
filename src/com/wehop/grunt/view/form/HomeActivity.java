@@ -26,7 +26,7 @@ public class HomeActivity extends FragmentEx {
 	/**
 	 * 入口URL
 	 */
-	public final static String URL = "http://cdn.oss.wehop-resources-beta.wehop.cn/sales/app/sites/v-1/index.html";
+	public final static String URL = "http://cdn.oss.wehop-resources.wehop.cn/sales/app/sites/v-1/index.html";
 	/**
 	 * 引导对象
 	 */

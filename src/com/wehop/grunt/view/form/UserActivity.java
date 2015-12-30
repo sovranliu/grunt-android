@@ -25,7 +25,7 @@ public class UserActivity extends FragmentEx {
 	/**
 	 * 关于我们URL
 	 */
-	public final static String URL_ABOUT = "http://cdn.oss.wehop-resources-beta.wehop.cn/sales/app/sites/v-1/about_us.html";
+	public final static String URL_ABOUT = "http://cdn.oss.wehop-resources.wehop.cn/sales/app/sites/v-1/about_us.html";
 	/**
 	 * 问卷调查URL
 	 */

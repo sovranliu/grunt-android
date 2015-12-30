@@ -41,7 +41,7 @@ public class TaskActivity extends FragmentEx {
 	 * 入口URL
 	 */
 	// public final static String URL = "file:///android_asset/test.html";
-	public final static String URL = "http://cdn.oss.wehop-resources-beta.wehop.cn/sales/app/sites/v-1/task.html";
+	public final static String URL = "http://cdn.oss.wehop-resources.wehop.cn/sales/app/sites/v-1/task.html";
 	/**
 	 * 引导对象
 	 */
