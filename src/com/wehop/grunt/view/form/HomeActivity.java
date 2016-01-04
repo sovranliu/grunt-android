@@ -15,6 +15,7 @@ import android.view.animation.AnimationUtils;
 import android.view.animation.LinearInterpolator;
 import android.webkit.DownloadListener;
 import android.webkit.WebChromeClient;
+import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.ImageView;
 
@@ -70,6 +71,7 @@ public class HomeActivity extends FragmentEx {
 	 * 准备浏览器
 	 */
 	public void prepareBrowser() {
+		browser.getSettings().setCacheMode(WebSettings.LOAD_NO_CACHE);
 		browser.getSettings().setJavaScriptEnabled(true);
 		browser.requestFocus();
 		browser.setScrollBarStyle(WebView.SCROLLBARS_OUTSIDE_OVERLAY);

@@ -18,7 +18,6 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
-import android.app.Activity;
 import android.content.ContentUris;
 import android.content.Context;
 import android.content.Intent;
@@ -34,6 +33,7 @@ import android.view.animation.LinearInterpolator;
 import android.webkit.DownloadListener;
 import android.webkit.ValueCallback;
 import android.webkit.WebChromeClient;
+import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.ImageView;
 
@@ -94,6 +94,7 @@ public class TaskActivity extends FragmentEx {
 	 * 准备浏览器
 	 */
 	public void prepareBrowser() {
+		browser.getSettings().setCacheMode(WebSettings.LOAD_NO_CACHE);
 		browser.getSettings().setJavaScriptEnabled(true);
 		browser.requestFocus();
 		browser.setScrollBarStyle(WebView.SCROLLBARS_OUTSIDE_OVERLAY);
@@ -104,7 +105,8 @@ public class TaskActivity extends FragmentEx {
 //					Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
 //	                startActivity(intent);
 //	                browser.pauseTimers();
-//	                return false;
+//	                // browser.resumeTimers();
+//	                return true;
 //	            }
 //				browser.loadUrl(url);
 //	            return true;
