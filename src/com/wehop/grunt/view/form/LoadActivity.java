@@ -2,11 +2,15 @@ package com.wehop.grunt.view.form;
 
 import java.io.File;
 
+import com.wehop.grunt.Program;
 import com.wehop.grunt.R;
 import com.wehop.grunt.base.Logger;
 import com.wehop.grunt.business.Logic;
 import com.wehop.grunt.framework.DynamicConfig;
 import com.wehop.grunt.framework.Storage;
+import com.slfuture.carrie.base.json.JSONVisitor;
+import com.slfuture.pluto.communication.Host;
+import com.slfuture.pluto.communication.response.JSONResponse;
 import com.slfuture.pluto.etc.Control;
 import com.slfuture.pluto.view.annotation.ResourceView;
 import com.slfuture.pluto.view.component.ActivityEx;
@@ -54,20 +58,36 @@ public class LoadActivity extends ActivityEx {
 		if(null != loadImage) {
 			imageLogo.setImageBitmap(Storage.getImage(loadImage));
 		}
+		Host.doCommand("update", new JSONResponse(this) {
+			@Override
+			public void onFinished(JSONVisitor content) {
+				if(null == content) {
+					return;
+				}
+				if(content.getInteger("code") <= 0) {
+					return;
+				}
+				JSONVisitor data = content.getVisitor("data");
+				String version = data.getString("appVersion");
+				if(null == version) {
+					return;
+				}
+				String url = data.getString("downloadUrl");
+				if(null == url) {
+					return;
+				}
+				int v = Integer.parseInt(version.replace(".", ""));
+				if(v <= Integer.valueOf(Program.VERSION.replace(".", ""))) {
+					return;
+				}
+				Intent intent = new Intent(LoadActivity.this, WebActivity.class);
+				intent.putExtra("url", url);
+				LoadActivity.this.startActivity(intent);
+			}
+		}, Program.VERSION);
 		Control.doDelay(new Runnable() {
 			@Override
 			public void run() {
-//				LocationSensor.fetchCurrentLocation(new ILocationListener() {
-//					@Override
-//					public void onListen(Location location) {
-//						if(null == location) {
-//							return;
-//						}
-//						String result = "{\"latitude\":\"" + location.latitude + "\", \"longitude\":\"" + location.longitude + "\"}";
-//					}
-//				}, 2000);
-//				
-//				return;
 		        if(null == Logic.user) {
 		        	startActivity(new Intent(LoadActivity.this, LoginActivity.class));
 		        }

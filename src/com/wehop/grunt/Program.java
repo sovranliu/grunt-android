@@ -15,6 +15,10 @@ public class Program extends Application {
 	 */
 	public final static String ID = "Grunt";
 	/**
+	 * 程序版本号
+	 */
+	public final static String VERSION = "1.0.2";
+	/**
 	 * 程序引用
 	 */
 	public static Application application = null;

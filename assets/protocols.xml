@@ -94,4 +94,24 @@ sales-platform-web/rest/validateToken#username=[1]&token=[2]
 	    ]]>
 	    </mock>
 	</protocol>
+	<protocol name="update">
+        <path>
+        <![CDATA[
+sales-platform-web/rest/getCurrentAppVersion?firmType=android
+        ]]>
+        </path>
+    <mock>
+        <![CDATA[
+{
+    "code": 1,
+    "msg": null,
+    "data": {
+        "firmType": "android",
+        "appVersion": "1.0.4",
+        "downloadUrl": "http://cdn.oss.wehop-resources.wehop.cn/mobile/android/release/stable/v-1.1/wehop.apk"
+    }
+}
+        ]]>
+        </mock>
+    </protocol>
 </protocols>
