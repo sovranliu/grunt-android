@@ -187,7 +187,7 @@ public class TaskActivity extends FragmentEx {
 		browser.prepare();
 	}
 
-	private Bitmap compressBitmap(Bitmap image) {
+	public Bitmap compressBitmap(Bitmap image) {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();  
         image.compress(Bitmap.CompressFormat.JPEG, 100, baos);//质量压缩方法，这里100表示不压缩，把压缩后的数据存放到baos中  
         int options = 100;  
@@ -221,24 +221,23 @@ public class TaskActivity extends FragmentEx {
 	}
 	
 	public String getRealPathFromURI(Uri contentUri) {
-		if(3 > 1 + 1) {
+		if(null != this.getActivity()) {
 			return getImageAbsolutePath(this.getActivity(), contentUri);
 		}
-	  String res = null;
-	  String[] proj = { MediaStore.Images.Media.DATA };
-	  Cursor cursor = this.getActivity().getContentResolver().query(contentUri, null, null, null, null);
-	  if(null == cursor) {
-		  // file:///storage/emulated/0/DCIM/Camera/IMG_20151224_193837.jpg
-		  return contentUri.getPath().replace("file://", "");
-	  }
-	  else {
-		  if(cursor.moveToFirst()) {
-		     int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
-		     res = cursor.getString(column_index);
-		  }
-		  cursor.close();
-		  return res;
-	  }
+		Cursor cursor = this.getActivity().getContentResolver().query(contentUri, null, null, null, null);
+		if(null == cursor) {
+			// file:///storage/emulated/0/DCIM/Camera/IMG_20151224_193837.jpg
+			return contentUri.getPath().replace("file://", "");
+		}
+		else {
+			String res = null;
+			if(cursor.moveToFirst()) {
+				int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+				res = cursor.getString(column_index);
+			}
+			cursor.close();
+			return res;
+		}
 	}
 	
 	
