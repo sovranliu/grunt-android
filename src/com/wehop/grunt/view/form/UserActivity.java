@@ -2,9 +2,9 @@ package com.wehop.grunt.view.form;
 
 import com.slfuture.pluto.communication.Host;
 import com.slfuture.pluto.communication.response.ImageResponse;
+import com.slfuture.pluto.etc.Version;
 import com.slfuture.pluto.view.annotation.ResourceView;
 import com.slfuture.pluto.view.component.FragmentEx;
-import com.wehop.grunt.Program;
 import com.wehop.grunt.R;
 import com.wehop.grunt.business.Logic;
 import com.wehop.grunt.framework.Utility;
@@ -86,7 +86,7 @@ public class UserActivity extends FragmentEx {
 			@Override
 			public void onClick(View v) {
 				Intent intent = new Intent(UserActivity.this.getActivity(), WebActivity.class);
-				intent.putExtra("url", URL_ABOUT + "?version=" + Program.VERSION);
+				intent.putExtra("url", URL_ABOUT + "?version=" + Version.fetchVersion(UserActivity.this.getActivity()));
 				startActivity(intent);
 			}
 		});

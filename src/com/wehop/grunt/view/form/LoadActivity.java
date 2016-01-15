@@ -12,6 +12,7 @@ import com.slfuture.carrie.base.json.JSONVisitor;
 import com.slfuture.pluto.communication.Host;
 import com.slfuture.pluto.communication.response.JSONResponse;
 import com.slfuture.pluto.etc.Control;
+import com.slfuture.pluto.etc.Version;
 import com.slfuture.pluto.view.annotation.ResourceView;
 import com.slfuture.pluto.view.component.ActivityEx;
 
@@ -76,15 +77,17 @@ public class LoadActivity extends ActivityEx {
 				if(null == url) {
 					return;
 				}
-				int v = Integer.parseInt(version.replace(".", ""));
-				if(v <= Integer.valueOf(Program.VERSION.replace(".", ""))) {
-					return;
+				Version current = Version.fetchVersion(LoadActivity.this);
+				Version serverVersion = Version.build(version);
+				if(null != current) {
+					if(current.compareTo(serverVersion) < 0) {
+						Intent intent = new Intent(LoadActivity.this, WebActivity.class);
+						intent.putExtra("url", url);
+						LoadActivity.this.startActivity(intent);
+					}
 				}
-				Intent intent = new Intent(LoadActivity.this, WebActivity.class);
-				intent.putExtra("url", url);
-				LoadActivity.this.startActivity(intent);
 			}
-		}, Program.VERSION);
+		}, Version.fetchVersion(LoadActivity.this));
 		Control.doDelay(new Runnable() {
 			@Override
 			public void run() {
