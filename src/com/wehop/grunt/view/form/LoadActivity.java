@@ -2,7 +2,6 @@ package com.wehop.grunt.view.form;
 
 import java.io.File;
 
-import com.wehop.grunt.Program;
 import com.wehop.grunt.R;
 import com.wehop.grunt.base.Logger;
 import com.wehop.grunt.business.Logic;
@@ -11,7 +10,7 @@ import com.wehop.grunt.framework.Storage;
 import com.slfuture.carrie.base.json.JSONVisitor;
 import com.slfuture.pluto.communication.Host;
 import com.slfuture.pluto.communication.response.JSONResponse;
-import com.slfuture.pluto.etc.Control;
+import com.slfuture.pluto.etc.Controller;
 import com.slfuture.pluto.etc.Version;
 import com.slfuture.pluto.view.annotation.ResourceView;
 import com.slfuture.pluto.view.component.ActivityEx;
@@ -88,7 +87,7 @@ public class LoadActivity extends ActivityEx {
 				}
 			}
 		}, Version.fetchVersion(LoadActivity.this));
-		Control.doDelay(new Runnable() {
+		Controller.doDelay(new Runnable() {
 			@Override
 			public void run() {
 		        if(null == Logic.user) {

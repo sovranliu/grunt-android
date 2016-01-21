@@ -15,7 +15,7 @@ import com.slfuture.carrie.base.etc.Serial;
 import com.slfuture.carrie.base.model.core.IEventable;
 import com.slfuture.carrie.base.time.DateTime;
 import com.slfuture.carrie.base.time.Duration;
-import com.slfuture.pluto.etc.Control;
+import com.slfuture.pluto.etc.Controller;
 import com.wehop.grunt.Program;
 import com.wehop.grunt.R;
 import com.wehop.grunt.framework.qcode.CaptureActivity;
@@ -286,7 +286,7 @@ public class Utility {
 		Intent intent = new Intent(context, CaptureActivity.class);
 		int commandId = Serial.makeLoopInteger();
 		intent.putExtra("commandId", commandId);
-		Control.<String>doJoin(commandId, callback);
+		Controller.<String>doJoin(commandId, callback);
 		context.startActivity(intent);
 	}
 }
