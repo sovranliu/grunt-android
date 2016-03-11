@@ -19,7 +19,7 @@ import android.view.SurfaceView;
 
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.Result;
-import com.slfuture.pluto.etc.Control;
+import com.slfuture.pluto.etc.Controller;
 import com.wehop.grunt.R;
 import com.wehop.grunt.framework.qcode.camera.CameraManager;
 import com.wehop.grunt.framework.qcode.decoding.CaptureActivityHandler;
@@ -169,7 +169,7 @@ public class CaptureActivity extends Activity implements Callback {
 		//
 		Intent intent = new Intent();
 		intent.putExtra("result", obj.getText());
-		Control.<String>doMerge(commandId, obj.getText());
+		Controller.<String>doMerge(commandId, obj.getText());
 		CaptureActivity.this.setResult(1, intent);
 		CaptureActivity.this.finish();
 	}

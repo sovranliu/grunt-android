@@ -7,7 +7,7 @@ import com.wehop.grunt.base.Logger;
 import com.wehop.grunt.business.Logic;
 import com.wehop.grunt.framework.DynamicConfig;
 import com.wehop.grunt.framework.Storage;
-import com.slfuture.pluto.etc.Control;
+import com.slfuture.pluto.etc.Controller;
 import com.slfuture.pluto.view.annotation.ResourceView;
 import com.slfuture.pluto.view.component.ActivityEx;
 
@@ -54,7 +54,7 @@ public class LoadActivity extends ActivityEx {
 		if(null != loadImage) {
 			imageLogo.setImageBitmap(Storage.getImage(loadImage));
 		}
-		Control.doDelay(new Runnable() {
+		Controller.doDelay(new Runnable() {
 			@Override
 			public void run() {
 //				LocationSensor.fetchCurrentLocation(new ILocationListener() {
