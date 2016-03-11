@@ -64,7 +64,7 @@ public class LoginActivity extends ActivityEx {
 						if(null == content) {
 							return;
 						}
-						if(content.getInteger("code", -1) < 0) {
+						if(content.getInteger("code", -1) <= 0) {
 							txtPassword.setText("");
 							return;
 						}
