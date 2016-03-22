@@ -1,7 +1,7 @@
 package com.wehop.grunt.view.form;
 
 import com.slfuture.carrie.base.json.JSONVisitor;
-import com.slfuture.pluto.communication.Host;
+import com.slfuture.pluto.communication.Networking;
 import com.slfuture.pluto.communication.response.JSONResponse;
 import com.slfuture.pluto.view.annotation.ResourceView;
 import com.slfuture.pluto.view.component.FragmentActivityEx;
@@ -17,7 +17,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TabHost;
 import android.widget.RadioGroup.OnCheckedChangeListener;
-import android.widget.TabHost.OnTabChangeListener;
+import android.widget.TabNetworking.OnTabChangeListener;
 import android.widget.TextView;
 
 /**
@@ -115,7 +115,7 @@ public class MainActivity extends FragmentActivityEx {
      * 检查用户合法性
      */
     public void check() {
-    	Host.doCommand("check", new JSONResponse(MainActivity.this) {
+    	Networking.doCommand("check", new JSONResponse(MainActivity.this) {
 			@Override
 			public void onFinished(JSONVisitor content) {
 				if(null == content) {

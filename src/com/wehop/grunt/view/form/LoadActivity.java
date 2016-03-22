@@ -8,7 +8,7 @@ import com.wehop.grunt.business.Logic;
 import com.wehop.grunt.framework.DynamicConfig;
 import com.wehop.grunt.framework.Storage;
 import com.slfuture.carrie.base.json.JSONVisitor;
-import com.slfuture.pluto.communication.Host;
+import com.slfuture.pluto.communication.Networking;
 import com.slfuture.pluto.communication.response.JSONResponse;
 import com.slfuture.pluto.etc.Controller;
 import com.slfuture.pluto.etc.Version;
@@ -58,7 +58,7 @@ public class LoadActivity extends ActivityEx {
 		if(null != loadImage) {
 			imageLogo.setImageBitmap(Storage.getImage(loadImage));
 		}
-		Host.doCommand("update", new JSONResponse(this) {
+		Networking.doCommand("update", new JSONResponse(this) {
 			@Override
 			public void onFinished(JSONVisitor content) {
 				if(null == content) {

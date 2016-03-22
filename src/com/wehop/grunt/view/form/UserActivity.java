@@ -1,6 +1,6 @@
 package com.wehop.grunt.view.form;
 
-import com.slfuture.pluto.communication.Host;
+import com.slfuture.pluto.communication.Networking;
 import com.slfuture.pluto.communication.response.ImageResponse;
 import com.slfuture.pluto.etc.Version;
 import com.slfuture.pluto.view.annotation.ResourceView;
@@ -73,7 +73,7 @@ public class UserActivity extends FragmentEx {
 	public void prepare() {
 		if(null != Logic.user) {
 			if(null != Logic.user.photo) {
-				Host.doImage("image", new ImageResponse(Logic.user.photo, null) {
+				Networking.doImage("image", new ImageResponse(Logic.user.photo, null) {
 					@Override
 					public void onFinished(Bitmap content) {
 						imgPhoto.setImageBitmap(Utility.makeImageRing(Utility.makeCycleImage(content, 200, 200), 4));
