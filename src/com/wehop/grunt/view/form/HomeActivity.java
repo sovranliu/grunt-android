@@ -1,5 +1,6 @@
 package com.wehop.grunt.view.form;
 
+import com.slfuture.pluto.communication.Networking;
 import com.slfuture.pluto.view.annotation.ResourceView;
 import com.slfuture.pluto.view.component.FragmentEx;
 import com.wehop.grunt.R;
@@ -24,11 +25,6 @@ import android.widget.ImageView;
  */
 @ResourceView(id = R.layout.activity_home)
 public class HomeActivity extends FragmentEx {
-	/**
-	 * 入口URL
-	 */
-	// public final static String URL = "http://cdn.oss.wehop-resources.wehop.cn/sales/app/sites/v-1/index.html";
-	public final static String URL = "http://cdn.oss.wehop-resources.wehop.cn/sales/app/sites/v-1/index.html";
 	/**
 	 * 引导对象
 	 */
@@ -65,7 +61,7 @@ public class HomeActivity extends FragmentEx {
 	 * 准备数据
 	 */
 	public void prepareData() {
-		this.url = URL + "?token=" + Logic.user.token;
+		this.url = Networking.fetchURL("HomePage", Logic.user.token);
 	}
 
 	/**

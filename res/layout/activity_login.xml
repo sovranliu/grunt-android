@@ -43,7 +43,7 @@
 		    android:layout_toRightOf="@+id/login_label_username"
 		    android:ems="10"
 		    android:hint=""
-		    android:textColor="@color/black"
+		    android:textColor="@color/white"
 			android:background="@android:color/transparent">
 		</EditText>
 	</RelativeLayout>
@@ -81,7 +81,7 @@
 		    android:ems="10"
 		    android:hint=""
 		    android:inputType="textPassword"
-		    android:textColor="@color/black" >
+		    android:textColor="@color/white" >
 
 		</EditText>
 	</RelativeLayout>

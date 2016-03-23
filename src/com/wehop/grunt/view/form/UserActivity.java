@@ -25,10 +25,6 @@ import android.widget.TextView;
 @ResourceView(id = R.layout.activity_user)
 public class UserActivity extends FragmentEx {
 	/**
-	 * 关于我们URL
-	 */
-	public final static String URL_ABOUT = "http://cdn.oss.wehop-resources.wehop.cn/sales/app/sites/v-1/about_us.html";
-	/**
 	 * 问卷调查URL
 	 */
 	public final static String URL_PAPER = "http://www.diaoyanbao.com/answer/load/7uHEqXF8";
@@ -87,7 +83,7 @@ public class UserActivity extends FragmentEx {
 			@Override
 			public void onClick(View v) {
 				Intent intent = new Intent(UserActivity.this.getActivity(), WebActivity.class);
-				intent.putExtra("url", URL_ABOUT + "?version=" + Version.fetchVersion(UserActivity.this.getActivity()));
+				intent.putExtra("url", Networking.fetchURL("AboutPage", Version.fetchVersion(UserActivity.this.getActivity())));
 				startActivity(intent);
 			}
 		});
