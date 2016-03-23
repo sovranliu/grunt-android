@@ -12,7 +12,7 @@ import com.slfuture.carrie.base.model.core.IEventable;
 import com.slfuture.carrie.base.text.Text;
 import com.slfuture.carrie.base.type.List;
 import com.slfuture.carrie.base.type.safe.Table;
-import com.slfuture.pluto.communication.Host;
+import com.slfuture.pluto.communication.Networking;
 import com.slfuture.pluto.net.HttpUtil;
 import com.slfuture.pluto.net.future.FileFuture;
 import com.wehop.grunt.base.Logger;
@@ -65,7 +65,7 @@ public class DynamicConfig {
 		     */
 			@Override
 		    public Void onExecute() {
-				String confString = HttpUtil.send(Host.fetchURL("config", version), null, null, null);
+				String confString = HttpUtil.send(Networking.fetchURL("config", version), null, null, null);
 				if(null == confString) {
 					Logger.e("config check failed");
 					return null;

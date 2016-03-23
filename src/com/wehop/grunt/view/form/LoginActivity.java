@@ -5,7 +5,7 @@ import com.wehop.grunt.base.Logger;
 import com.wehop.grunt.business.Logic;
 import com.slfuture.carrie.base.etc.Serial;
 import com.slfuture.carrie.base.json.JSONVisitor;
-import com.slfuture.pluto.communication.Host;
+import com.slfuture.pluto.communication.Networking;
 import com.slfuture.pluto.communication.response.JSONResponse;
 import com.slfuture.pluto.view.annotation.ResourceView;
 import com.slfuture.pluto.view.component.ActivityEx;
@@ -58,7 +58,7 @@ public class LoginActivity extends ActivityEx {
 				}
 				String md5 = Serial.getMD5String(txtPassword.getText().toString()).toLowerCase();
 				md5 = md5.substring(8, 24);
-				Host.doCommand("login", new JSONResponse(LoginActivity.this) {
+				Networking.doCommand("login", new JSONResponse(LoginActivity.this) {
 					@Override
 					public void onFinished(JSONVisitor content) {
 						if(null == content) {

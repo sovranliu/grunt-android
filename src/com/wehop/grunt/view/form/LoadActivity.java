@@ -7,7 +7,11 @@ import com.wehop.grunt.base.Logger;
 import com.wehop.grunt.business.Logic;
 import com.wehop.grunt.framework.DynamicConfig;
 import com.wehop.grunt.framework.Storage;
+import com.slfuture.carrie.base.json.JSONVisitor;
+import com.slfuture.pluto.communication.Networking;
+import com.slfuture.pluto.communication.response.JSONResponse;
 import com.slfuture.pluto.etc.Controller;
+import com.slfuture.pluto.etc.Version;
 import com.slfuture.pluto.view.annotation.ResourceView;
 import com.slfuture.pluto.view.component.ActivityEx;
 
@@ -54,20 +58,38 @@ public class LoadActivity extends ActivityEx {
 		if(null != loadImage) {
 			imageLogo.setImageBitmap(Storage.getImage(loadImage));
 		}
+		Networking.doCommand("update", new JSONResponse(this) {
+			@Override
+			public void onFinished(JSONVisitor content) {
+				if(null == content) {
+					return;
+				}
+				if(content.getInteger("code") <= 0) {
+					return;
+				}
+				JSONVisitor data = content.getVisitor("data");
+				String version = data.getString("appVersion");
+				if(null == version) {
+					return;
+				}
+				String url = data.getString("downloadUrl");
+				if(null == url) {
+					return;
+				}
+				Version current = Version.fetchVersion(LoadActivity.this);
+				Version serverVersion = Version.build(version);
+				if(null != current) {
+					if(current.compareTo(serverVersion) < 0) {
+						Intent intent = new Intent(LoadActivity.this, WebActivity.class);
+						intent.putExtra("url", url);
+						LoadActivity.this.startActivity(intent);
+					}
+				}
+			}
+		}, Version.fetchVersion(LoadActivity.this));
 		Controller.doDelay(new Runnable() {
 			@Override
 			public void run() {
-//				LocationSensor.fetchCurrentLocation(new ILocationListener() {
-//					@Override
-//					public void onListen(Location location) {
-//						if(null == location) {
-//							return;
-//						}
-//						String result = "{\"latitude\":\"" + location.latitude + "\", \"longitude\":\"" + location.longitude + "\"}";
-//					}
-//				}, 2000);
-//				
-//				return;
 		        if(null == Logic.user) {
 		        	startActivity(new Intent(LoadActivity.this, LoginActivity.class));
 		        }

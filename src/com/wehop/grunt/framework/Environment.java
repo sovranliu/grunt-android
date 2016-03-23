@@ -1,6 +1,6 @@
 package com.wehop.grunt.framework;
 
-import com.slfuture.pluto.communication.Host;
+import com.slfuture.pluto.communication.Networking;
 import com.slfuture.pluto.config.Configuration;
 import com.slfuture.pluto.sensor.LocationSensor;
 import com.wehop.grunt.Program;
@@ -22,7 +22,7 @@ public class Environment {
 			return false;
 		}
 		// 初始化网络
-		if(!Host.initialize()) {
+		if(!Networking.initialize(Program.application)) {
 			Logger.e("Host initialize failed");
 			return false;
 		}
@@ -43,7 +43,7 @@ public class Environment {
 	 */
 	public static void terminate() {
 		// 终结网络
-		Host.terminate();
+		Networking.terminate();
 		// 终结配置
 		Configuration.terminate();
 		// 终结动态配置

@@ -1,10 +1,11 @@
 package com.wehop.grunt.view.form;
 
-import com.slfuture.pluto.communication.Host;
+import com.slfuture.pluto.communication.Networking;
 import com.slfuture.pluto.communication.response.ImageResponse;
 import com.slfuture.pluto.etc.Version;
 import com.slfuture.pluto.view.annotation.ResourceView;
 import com.slfuture.pluto.view.component.FragmentEx;
+import com.slfuture.pretty.general.view.form.EnvironmentActivity;
 import com.wehop.grunt.R;
 import com.wehop.grunt.business.Logic;
 import com.wehop.grunt.framework.Utility;
@@ -23,10 +24,6 @@ import android.widget.TextView;
  */
 @ResourceView(id = R.layout.activity_user)
 public class UserActivity extends FragmentEx {
-	/**
-	 * 关于我们URL
-	 */
-	public final static String URL_ABOUT = "http://cdn.oss.wehop-resources.wehop.cn/sales/app/sites/v-1/about_us.html";
 	/**
 	 * 问卷调查URL
 	 */
@@ -73,7 +70,7 @@ public class UserActivity extends FragmentEx {
 	public void prepare() {
 		if(null != Logic.user) {
 			if(null != Logic.user.photo) {
-				Host.doImage("image", new ImageResponse(Logic.user.photo, null) {
+				Networking.doImage("image", new ImageResponse(Logic.user.photo, null) {
 					@Override
 					public void onFinished(Bitmap content) {
 						imgPhoto.setImageBitmap(Utility.makeImageRing(Utility.makeCycleImage(content, 200, 200), 4));
@@ -86,8 +83,16 @@ public class UserActivity extends FragmentEx {
 			@Override
 			public void onClick(View v) {
 				Intent intent = new Intent(UserActivity.this.getActivity(), WebActivity.class);
-				intent.putExtra("url", URL_ABOUT + "?version=" + Version.fetchVersion(UserActivity.this.getActivity()));
+				intent.putExtra("url", Networking.fetchURL("AboutPage", Version.fetchVersion(UserActivity.this.getActivity())));
 				startActivity(intent);
+			}
+		});
+		layAbout.setOnLongClickListener(new View.OnLongClickListener() {
+			@Override
+			public boolean onLongClick(View v) {
+				Intent intent = new Intent(UserActivity.this.getActivity(), EnvironmentActivity.class);
+				UserActivity.this.startActivity(intent);
+				return true;
 			}
 		});
 		layTelephone.setOnClickListener(new View.OnClickListener() {

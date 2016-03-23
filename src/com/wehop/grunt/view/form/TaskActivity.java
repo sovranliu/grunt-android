@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 
 import com.slfuture.carrie.base.etc.Serial;
+import com.slfuture.pluto.communication.Networking;
 import com.slfuture.pluto.view.annotation.ResourceView;
 import com.slfuture.pluto.view.component.FragmentEx;
 import com.wehop.grunt.R;
@@ -42,11 +43,6 @@ import android.widget.ImageView;
  */
 @ResourceView(id = R.layout.activity_task)
 public class TaskActivity extends FragmentEx {
-	/**
-	 * 入口URL
-	 */
-	// public final static String URL = "file:///android_asset/test.html";
-	public final static String URL = "http://cdn.oss.wehop-resources.wehop.cn/sales/app/sites/v-1/task.html";
 	/**
 	 * 引导对象
 	 */
@@ -87,7 +83,7 @@ public class TaskActivity extends FragmentEx {
 	 * 准备数据
 	 */
 	public void prepareData() {
-		this.url = URL + "?token=" + Logic.user.token;
+		this.url = Networking.fetchURL("TaskPage", Logic.user.token);
 	}
 
 	/**

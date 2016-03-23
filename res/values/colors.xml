@@ -3,7 +3,7 @@
     <color name="black">#ff000000</color>
     <color name="white">#ffffffff</color>
     <color name="grey">#FFF0F0F0</color>
-    <color name="green">#ff0097AA</color>
+    <color name="green">#ff37BAB9</color>
       <color name="contents_text">#ff000000</color>
   <color name="encode_view">#ffffffff</color>
   <color name="help_button_view">#ffcccccc</color>
