@@ -22,7 +22,7 @@ public class Environment {
 			return false;
 		}
 		// 初始化网络
-		if(!Networking.initialize()) {
+		if(!Networking.initialize(Program.application)) {
 			Logger.e("Host initialize failed");
 			return false;
 		}
